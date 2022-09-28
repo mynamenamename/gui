@@ -76,6 +76,7 @@ public class CalTest_alone {
 		 
 		 f.add(jj, BorderLayout.CENTER);
 		
+		 
 		
 		
 		//화면 출력

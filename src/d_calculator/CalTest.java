@@ -163,7 +163,7 @@ public class CalTest {
 		         op = eBtn.getText(); // set은 설정 get은 가져오는 것
 		         // 문자열 >> 숫자 변환
 		         first = Integer.parseInt(tf.getText()); 
-		         tf.setText("");
+		         tf.setText(null); // null이나 " " 똑같음  -> 지우기
 		         
 		         
 		         }  

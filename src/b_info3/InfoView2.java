@@ -1,4 +1,4 @@
-package b_info;
+package b_info3;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,9 +18,6 @@ import javax.swing.JTextField;
 
 public class InfoView2 {
 
-	//여기서 합쳐보기~!!
-	
-	
 	//1. 멤버변수 선언
 	JFrame f;
 	JTextField tfName, tfId, tfTel, tfGender, tfAge, tfHome;
@@ -30,7 +27,7 @@ public class InfoView2 {
 	
     //2. 객체 생성
 	InfoView2() {
-		f = new JFrame("DBTest22");
+		f = new JFrame("DBTest");
 		
 		tfName = new JTextField(15);
 		tfId = new JTextField (15);
@@ -197,8 +194,8 @@ public class InfoView2 {
 				}else if(seven == '2'||seven == '4'||seven == '0') {
 					//JOptionPane.showMessageDialog(null, "여자"); // 여자 팝업창 뜸
 					tfGender.setText("여자");
-				}else tfGender.setText("잘못 입력하셨습니다!");
-				
+					return;
+				}
 				// (2) 주민번호 8번째 문자로 출신지 구하여 출신지창에 출력
 				
 				 char seven2 = jumin.charAt(8);

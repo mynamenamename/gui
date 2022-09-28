@@ -1,4 +1,4 @@
-package b_info;
+package b_info3;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,9 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-
 public class InfoView {
 
 	//1. 멤버변수 선언
@@ -28,8 +25,6 @@ public class InfoView {
 	JTextArea ta;
 	JButton bAdd, bShow ,bSearch, bDelete, bCancel, bExit; 
 	
-	//person VO 저장할 변수, 객체 생성
-	ArrayList <PersonVO> list = new ArrayList <PersonVO> ();
 	
     //2. 객체 생성
 	InfoView() {
@@ -126,7 +121,7 @@ public class InfoView {
 		
 		
 		//화면 출력
-		f.setBounds(300,300,800,400);
+		f.setBounds(100,100,500,350);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -138,43 +133,34 @@ public class InfoView {
 		// ADD 버튼이 눌렸을 때 이벤트 처리
 		bAdd.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(null, "Add 버튼 클릭");
-				inputData();
-				clearTextField();
-				selectAll();
+				JOptionPane.showMessageDialog(null, "Add 버튼 클릭");
 			}   
 			
 		}  );
 		
-		// SHOW 버튼이 눌렸을 때 이벤트 처리
+		
 		bShow.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(null, "Show 버튼 클릭");
-				selectAll();
+				JOptionPane.showMessageDialog(null, "Show 버튼 클릭");
 			}   
 			
 		}  );
 		
-		// SEARCH 버튼이 눌렸을 때 이벤트 처리
 		bSearch.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(null, "Search 버튼 클릭");
-				selectByTel();
+				JOptionPane.showMessageDialog(null, "Search 버튼 클릭");
 			}   
 			
 		}  );
 		
 		
-		// DELETE 버튼이 눌렸을 때 이벤트 처리
 		bDelete.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(null, "Delete 버튼 클릭");
-				deleteByTel();
+				JOptionPane.showMessageDialog(null, "Delete 버튼 클릭");
 			}   
 			
 		}  );
 		
-		// CANCEL 버튼이 눌렸을 때 이벤트 처리
 		bCancel.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//JOptionPane.showMessageDialog(null, "Cancel 버튼 클릭");
@@ -183,7 +169,7 @@ public class InfoView {
 			
 		}  );
 		
-		// EXIT 버튼이 눌렸을 때 이벤트 처리
+		
 		bExit.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Exit 버튼 클릭");
@@ -192,17 +178,6 @@ public class InfoView {
 		}  );
 		
         
-		// 전화번호 텍스트필드에서 엔터쳤을 때 이벤트
-		tfTel.addActionListener(new  ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				selectByTel();
-				
-		
-			}   
-			
-		}  );
-		
-		
 		    // 주민번호 입력창에서 엔터 쳤을때 이벤트
 		tfId.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -223,7 +198,8 @@ public class InfoView {
 				}else if(seven == '2'||seven == '4'||seven == '0') {
 					JOptionPane.showMessageDialog(null, "여자"); // 여자 팝업창 뜸
 					tfGender.setText("여자");
-				}else tfGender.setText("잘못 입력하셨습니다!");
+					return;
+				}
 			}   
 			}  );
 				
@@ -286,7 +262,7 @@ public class InfoView {
 			}  );  // end of addActionListener
 		
 		   
-		// 주민번호 입력창에서 <<포커스>> 이벤트 발생했을때
+		// 주민번호 입력창에서 포커스 이벤트 발생했을때
 		   
 		   tfId.addFocusListener(new FocusListener() {
 				public void focusGained(FocusEvent e) {
@@ -301,133 +277,8 @@ public class InfoView {
 	}//end of eventProc()
 	
 	
-	
-	void deleteByTel() {
-		// 입력한 전화번호값 얻어오기
-		String tel = tfTel.getText();
-		//입력받은 전화번호가 공백이라면 "전화번호를 입력하세요" 메시지창 띄우기
-		if (tel.equals(" ")) { //string 비교는 equals
-			JOptionPane.showMessageDialog(null, "전화번호를 입력하세요"); 
-			return; //전화번호 입력하지 않으면 메세지 띄우고 나가버리는 역할
-		}
-		//list에 저장된 PersonVO의 전화번호와 비교하여 
-        //해당 전화번호가 있으면 해당하는 PersonVO를 리스트에서 삭제
-		for(PersonVO vo: list) {
-			if(tel.equals(vo.getTel())) {
-			    list.remove(vo); 
-			    ta.setText(null);
-				tfName.setText(null);
-			    tfId.setText(null);
-			    tfTel.setText(null);
-			    tfAge.setText(null); //String >> int
-			    tfGender.setText(null);
-			    tfHome.setText(null);
-			    break;
-			} 
-			}
-		//참고 : 삭제하고 나서 break로 반복문 끝내기
-		
-	}
-	
-	
-	
-	
-	
-	
 	/*
-	 * 함수명:  selectByTel
-	 * 인자 :   없음
-	 * 리턴값:  void 
-	 * 역할 :
-	 */
-	
-	void selectByTel() {
-		// 입력한 전화번호값 얻어오기
-	String tel = tfTel.getText();
-		
-	    //입력받은 전화번호가 공백이라면 "전화번호를 입력하세요" 메시지창 띄우기
-		if (tel.equals(" ")) { //string 비교는 equals
-			JOptionPane.showMessageDialog(null, "전화번호를 입력하세요"); 
-			return; //전화번호 입력하지 않으면 메세지 띄우고 나가버리는 역할
-		}
-		
-		//list에 저장된 PersonVO의 전화번호와 비교하여 
-		//해당 전화번호가 있으면 그 내용을 각각의 텍스트필드에 출력
-		
-		for(PersonVO vo: list) {
-			if(tel.equals(vo.getTel())) {
-				tfName.setText(vo.getName());
-			    tfId.setText(vo.getId());
-			    tfTel.setText(vo.getTel());
-			    tfAge.setText(Integer.toString(vo.getAge())); //String >> int
-			    tfGender.setText(vo.getGender());
-			    tfHome.setText(vo.getHome());
-			    
-			}
-		}
-		
-		
-	}// end of selectByTel()
-	
-	
-	
-	
-	/*
-	 * SHOW 버튼이 눌렸을 때 리스트에 저장된 정보를 모두
-	 * text area에 출력
-	 */
-	
-
-	void selectAll() {
-		ta.setText("------ 전체 목록 ------  \n \n "); 
-		//ta.setText(null); 해도됨
-		for(PersonVO vo : list ) {
-			ta.append(vo.toString()); //기존 내용에 추가 : append
-		         //object값은 자동변환이 되지 않기 때문에 toString으로 변환해줘야함
-		}
-		
-		
-		
-	}// end of selectAll()
-	
-	
-	
-	/*
-	 * ADD 버튼이 눌렸을 때 Textfield에 입력한 사용자 값들을
-	 * PersonVO에 저장
-	 */
-	
-	void inputData() {
-		//[1] 각각의 텍스트필드 입력값 얻어오기
-	    //  String n = tfName.getText();  한번 사용하고 마니까 바로 넣기 
-		  
-		
-		//[2] 1번의 값들을 PersonVO 멤버변수에 저장(setter/ constructor(생성자))
-		//setter
-	    PersonVO vo = new PersonVO();
-	    vo.setName(tfName.getText());
-		vo.setId(tfId.getText());
-		vo.setTel(tfTel.getText());
-		vo.setAge(Integer.parseInt(tfAge.getText())); // int > string
-		vo.setHome(tfHome.getText());
-		vo.setGender(tfGender.getText());
-		
-		//한 사람의 정보를 arraylist에 저장
-		list.add(vo);
-		
-		
-		 /* 생성자
-		 PersonVO vo2 = new PersonVO(String tfName, String tfId, String tfTel);
-		
-	    */
-		
-	} // end of inputdata()
-	
-	
-	
-	
-	/*
-	 * CANCEL 버튼이 눌렸을 때 각각의 텍스트필드, 텍스트area 값을 지우기 
+	 * 각각의 텍스트필드, 텍스트area 값을 지우기 
 	 */
 	
 	void clearTextField() {
@@ -439,10 +290,12 @@ public class InfoView {
 		tfTel.setText(null);  
 		tfAge.setText(null);
 		tfHome.setText(null);
-		tfGender.setText(null);
+		
+		
 		
 		
 	} // end of clearTextField()
+	
 	
 	
 	
@@ -456,6 +309,7 @@ public class InfoView {
 			return;
 		}
 	} //end of  getJuminINfo()
+	
 	
 	
 	
